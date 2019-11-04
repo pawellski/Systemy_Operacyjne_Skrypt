@@ -26,7 +26,6 @@ EXIT /B 0
 :checkNumberOfArguments
 set numberOfArguments=0
 for %%x in (%*) do set /A numberOfArguments +=1
-echo Liczba argumentow wejsciowych %numberOfArguments%
 goto :returnCheckNumberOfArguments
 
 :showEnvironmentVariables
