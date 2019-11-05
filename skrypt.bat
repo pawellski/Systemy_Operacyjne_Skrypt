@@ -15,10 +15,17 @@ goto :checkNumberOfArguments
 goto :showEnvironmentVariables
 :returnShowEnvironmentVariables
 
-
 if not "%shell%" == "TCC" goto :incorrectShell
 
+goto :Help
+:returnHelp
 
+if %numberOfArguments% EQ 2 goto :chooseFunction
+:returnChooseFunction
+
+ECHO Nieprawidlowe argumenty!
+ECHO __________________________________________________________________________
+goto :DisplayHelp
 
 EXIT /B 0
 
@@ -48,12 +55,7 @@ goto :returnShowEnvironmentVariables
 :incorrectShell
 ECHO Powloka %shell% nie jest wspierana. Skorzystaj z powloki TCC.
 ECHO __________________________________________________________________________
-if %numberOfArguments% == 1 goto :Help
-ECHO Nieprawidlowe argumenty!
-ECHO __________________________________________________________________________
-goto :DisplayHelp
-ECHO __________________________________________________________________________
-EXIT /B 0
+goto :Help
 
 :Help
 if "%~1"=="/?" goto :DisplayHelp
@@ -62,15 +64,60 @@ if "%~1"=="/help" goto :DisplayHelp
 if "%~1"=="-?" goto :DisplayHelp
 if "%~1"=="-h" goto :DisplayHelp
 if "%~1"=="-help" goto :DisplayHelp
+if "%shell%" == "TCC" goto :returnHelp
 ECHO Nieprawidlowe argumenty!
 ECHO __________________________________________________________________________
 goto :DisplayHelp
 
 :DisplayHelp
-ECHO HELP
-ECHO %0% (- ^| /)(h ^| help ^| ?) - wyswietlenie pomocy
-ECHO %0% (-abs ^| -ABS) liczba - uruchomienie funkcji ABS
-ECHO %0% (-int ^| -INT) liczba - uruchomienie funkcji INT
-ECHO %0% (-decimal ^| -DECIMAL) liczba - uruchomienie funkcji DECIMAL
+ECHO HELP & ECHO:
+ECHO Uruchomienie skrytpu:
+ECHO .\skrypt.bat (- ^| /)(h ^| help ^| ?) - wyswietlenie pomocy
+ECHO .\skrypt.bat (-abs ^| -ABS) liczba - uruchomienie funkcji ABS
+ECHO .\skrypt.bat (-int ^| -INT) liczba - uruchomienie funkcji INT
+ECHO .\skrypt.bat (-decimal ^| -DECIMAL) liczba - uruchomienie funkcji DECIMAL & ECHO:
+ECHO Argumenty:
+ECHO Argument "liczba" musi byc wprowadzony w formacie x^^,y
+ECHO ^> gdzie x to czesc calkowita reprezentowana przez n cyfr z zakresu 0-9
+ECHO ^> gdzie y to czesc dziesietna reprezentowana przez m cyfr z zakresu 0-9
+ECHO __________________________________________________________________________
+EXIT /B 0
+
+:chooseFunction
+if "%~1" == "-ABS" goto :ABS	
+if "%~1" == "-abs" goto :ABS
+	
+if "%~1" == "-INT" goto :INT
+if "%~1" == "-int" goto :INT
+	
+if "%~1" == "-DECIMAL" goto :DECIMAL	
+if "%~1" == "-decimal" goto :DECIMAL
+
+goto :returnChooseFunction
+
+
+:ABS
+if %@NUMERIC[%~2]==0 goto :badNumber
+ECHO Wprowadzona liczba: %~2
+ECHO Wartosc zwracana przez funkcje @ABS: %@ABS[%~2]
+ECHO __________________________________________________________________________
+EXIT /B 0
+
+:INT
+if %@NUMERIC[%~2]==0 goto :badNumber
+ECHO Wprowadzona liczba: %~2
+ECHO Wartosc zwracana przez funkcje @INT: %@INT[%~2]
+ECHO __________________________________________________________________________
+EXIT /B 0
+
+:DECIMAL
+if %@NUMERIC[%~2]==0 goto :badNumber
+ECHO Wprowadzona liczba: %~2
+ECHO Wartosc zwracana przez funkcje @DECIMAL: %@DECIMAL[%~2]
+ECHO __________________________________________________________________________
+EXIT /B 0
+
+:badNumber
+echo 2 arg nie jest liczba
 ECHO __________________________________________________________________________
 EXIT /B 0
