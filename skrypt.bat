@@ -72,14 +72,18 @@ goto :DisplayHelp
 :DisplayHelp
 ECHO HELP & ECHO:
 ECHO Uruchomienie skrytpu:
-ECHO .\skrypt.bat (- ^| /)(h ^| help ^| ?) - wyswietlenie pomocy
-ECHO .\skrypt.bat (-abs ^| -ABS) liczba - uruchomienie funkcji ABS
-ECHO .\skrypt.bat (-int ^| -INT) liczba - uruchomienie funkcji INT
-ECHO .\skrypt.bat (-decimal ^| -DECIMAL) liczba - uruchomienie funkcji DECIMAL & ECHO:
+ECHO .\skrypt.bat [- ^| /][h ^| help ^| ?] - wyswietlenie helpa
+ECHO .\skrypt.bat [-abs ^| -ABS] liczba - uruchomienie funkcji ABS
+ECHO .\skrypt.bat [-int ^| -INT] liczba - uruchomienie funkcji INT
+ECHO .\skrypt.bat [-decimal ^| -DECIMAL] liczba - uruchomienie funkcji DECIMAL & ECHO:
 ECHO Argumenty:
 ECHO Argument "liczba" musi byc wprowadzony w formacie x^^,y
 ECHO ^> gdzie x to czesc calkowita reprezentowana przez n cyfr z zakresu 0-9
-ECHO ^> gdzie y to czesc dziesietna reprezentowana przez m cyfr z zakresu 0-9
+ECHO ^> gdzie y to czesc dziesietna reprezentowana przez m cyfr z zakresu 0-9 & ECHO:
+ECHO Przykladowe wywolania:
+ECHO .\skrypt.bat -ABS -264^,12
+ECHO .\skrypt.bat -INT -264^,12
+ECHO .\skrypt.bat -DECIMAL -264^,12 
 ECHO __________________________________________________________________________
 EXIT /B 0
 
@@ -118,6 +122,8 @@ ECHO __________________________________________________________________________
 EXIT /B 0
 
 :badNumber
-echo 2 arg nie jest liczba
+ECHO Argument nr 2: %~2 nie jest zgodny z akceptowalnym formatem. 
+ECHO Skrypt nalezy uruchomiac zgodnie z instrukcja przedstawiona w helpie.
 ECHO __________________________________________________________________________
+goto :DisplayHelp
 EXIT /B 0
