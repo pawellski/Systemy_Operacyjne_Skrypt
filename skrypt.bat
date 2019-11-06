@@ -81,9 +81,9 @@ ECHO Argument "liczba" musi byc wprowadzony w formacie x^^,y
 ECHO ^> gdzie x to czesc calkowita reprezentowana przez n cyfr z zakresu 0-9
 ECHO ^> gdzie y to czesc dziesietna reprezentowana przez m cyfr z zakresu 0-9 & ECHO:
 ECHO Przykladowe wywolania:
-ECHO .\skrypt.bat -ABS -264^,12
-ECHO .\skrypt.bat -INT -264^,12
-ECHO .\skrypt.bat -DECIMAL -264^,12 
+ECHO .\skrypt.bat -ABS -264^^,12
+ECHO .\skrypt.bat -INT -264^^,12
+ECHO .\skrypt.bat -DECIMAL -264^^,12 
 ECHO __________________________________________________________________________
 EXIT /B 0
 
